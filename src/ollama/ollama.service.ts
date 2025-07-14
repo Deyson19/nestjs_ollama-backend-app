@@ -19,7 +19,6 @@ export class OllamaService {
 
   public async generateResponse(prompt: string) {
     const resp = await this.request(prompt);
-    console.log(resp.data);
     return resp.data.response;
   }
 

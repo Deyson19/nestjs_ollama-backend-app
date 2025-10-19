@@ -22,6 +22,11 @@ export class OllamaService {
     return resp.data.response;
   }
 
+  public async generateText(prompt: string) {
+    const resp = (await this.request(prompt)).data.response;
+    return resp;
+  }
+
   private async request(prompt: string) {
     const endPoint = `${this.baseUrl}/api/generate`;
     const body = {

@@ -15,4 +15,15 @@ export class OllamaController {
       response: resp,
     };
   }
+
+  @Post('generateText')
+  @HttpCode(200)
+  public async generateText(@Body() body: { prompt: string }) {
+    const { prompt } = body;
+    const resp = await this.ollamaService.generateText(prompt);
+
+    return {
+      response: resp,
+    };
+  }
 }

@@ -1,5 +1,5 @@
 import { HttpService } from '@nestjs/axios';
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { IOllamaResponse } from './interfaces/IOllamaResponse';
 
@@ -28,6 +28,13 @@ export class OllamaService {
   }
 
   private async request(prompt: string) {
+    if (prompt.length === 0) {
+      throw new BadRequestException({
+        message: 'Prompt cannot be empty',
+        status: 400,
+        error: 'Bad Request',
+      });
+    }
     const endPoint = `${this.baseUrl}/api/generate`;
     const body = {
       model: this.model,

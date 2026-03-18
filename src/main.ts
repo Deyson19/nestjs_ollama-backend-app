@@ -17,7 +17,9 @@ async function bootstrap() {
     .addTag('Ollama')
     .build();
   const documentFactory = () => SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api', app, documentFactory);
+  SwaggerModule.setup('api', app, documentFactory, {
+    jsonDocumentUrl: 'swagger/json',
+  });
   app.enableCors();
   await app.listen(port, () => {
     logger.log(`Server running on port ${port}`);

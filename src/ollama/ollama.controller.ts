@@ -1,5 +1,7 @@
 import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
 import { OllamaService } from './ollama.service';
+import { ApiBody } from '@nestjs/swagger';
+import { OllamaCreatePrompt } from './dto/ollama-create-prompt.dto';
 
 @Controller('ollama')
 export class OllamaController {
@@ -7,7 +9,9 @@ export class OllamaController {
 
   @Post()
   @HttpCode(HttpStatus.OK)
-  public async generateResponse(@Body() body: { prompt: string }) {
+  public async generateResponse(@Body() body: OllamaCreatePrompt) {
+    console.log('Prompt: ', body.prompt);
+
     const resp = await this.ollamaService.generateResponse(body.prompt);
 
     return {
@@ -18,7 +22,7 @@ export class OllamaController {
 
   @Post('generateText')
   @HttpCode(200)
-  public async generateText(@Body() body: { prompt: string }) {
+  public async generateText(@Body() body: OllamaCreatePrompt) {
     const { prompt } = body;
     const resp = await this.ollamaService.generateText(prompt);
 
